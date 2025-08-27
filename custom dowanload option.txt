@@ -1,0 +1,65 @@
+DECLARE
+    l_context apex_exec.t_context;
+    l_print_config apex_data_export.t_print_config;
+    l_export apex_data_export.t_export;
+    l_report_format apex_data_export.t_format;
+BEGIN
+    -- Open the query context for exporting data
+    l_context := apex_exec.open_query_context(
+        p_location => apex_exec.c_location_local_db,
+        p_sql_query => '
+            select A.ID,
+       A.EMP_ID,
+       A.FULL_NAME,
+       A.DEPARTMENT_ID,
+       A.DEPARTMENT_NAME,
+       A.DESIGNATION_ID,
+       A.DESIGNATION_NAME,
+       A.LOCATION_ID,
+       A.LOCATION_NAME,
+       A.JOINING_DATE,
+       A.CONFIRMATION,
+       A.LAST_INCRE,
+       A.SERVICE_LENGTH,
+       A.ELIGABLE_STATUS,
+       A.ELIGIBLE,
+       A.YEAR_ID,
+       A.INSERT_BY,
+       A.INSERT_DATE,
+       A.UPDATE_BY,
+       A.UPDATE_DATE
+  from AMS_ELEGIBALE_LIST A,EMP_INFO B
+  where A.EMP_ID=B.EMP_ID
+  AND  B.COMP_ID= NVL(:P31_UNIT, B.COMP_ID)
+  AND  A.LOCATION_ID=NVL(:P31_LOCATION,A.LOCATION_ID)
+  AND  A.DEPARTMENT_ID=NVL(:P31_DEPARTMENT_ID, A.DEPARTMENT_ID)
+
+  AND B.CATEGORY_ID=NVL(:P31_EMP_TYPE,B.CATEGORY_ID)
+        '
+    );
+
+    -- Configure print settings
+    l_print_config := apex_data_export.get_print_config(
+        p_orientation => apex_data_export.c_orientation_portrait,
+        p_border_width => .5
+    );
+
+    -- Set report format
+    l_report_format := apex_data_export.c_format_xlsx;
+
+    -- Export data
+    l_export := apex_data_export.export (
+        p_context => l_context,
+        p_print_config => l_print_config,
+        p_format => l_report_format
+    );
+
+    -- Close context and download the report
+    apex_exec.close(l_context);
+    apex_data_export.download(p_export => l_export);
+
+EXCEPTION
+    WHEN OTHERS THEN
+        apex_exec.close(l_context);
+        RAISE;
+END;

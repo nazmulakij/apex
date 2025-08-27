@@ -1,0 +1,62 @@
+SET SERVEROUTPUT ON SIZE 1000000; 
+  declare 
+                            V_OTHER_DEDUCTION NUMBER := 0;
+                            V_LATE_AMOUNT NUMBER := 0;
+                            V_LEV_TAKEN NUMBER := 0;
+                            V_SALARY_ELIGIBLE NUMBER := 0;
+                    
+                           
+                                BEGIN
+                                   PRC_DEDUCTION_CALCULATION_TEST(
+                                         377769,
+                                        '30-Jun-2024',
+                                       2024,
+                                         6,
+                                        30,
+                                         2650,
+                                       2650,
+                                         V_OTHER_DEDUCTION,
+                                        V_LATE_AMOUNT,
+                                       V_LEV_TAKEN,
+                                       V_SALARY_ELIGIBLE
+                                    );
+                                    
+                                    DBMS_OUTPUT.PUT_LINE('other'||V_OTHER_DEDUCTION||'late'||V_LATE_AMOUNT||'leave'||'---'||V_LEV_TAKEN||'is salary'||V_SALARY_ELIGIBLE);
+                                END;
+
+
+
+
+ 
+SET SERVEROUTPUT ON SIZE 1000000; 
+
+ 
+ DECLARE
+                            CURSOR C1 IS
+                            SELECT EMP_ID, UNIT, STATTION, PAYTYPE, SALARY, D_SALARY, H_SALARY, BASIC_PER, HOUSE_REST_PER, MEDICAL_ALLOWANCE_PER, PF_PER, TRANSPORT_PER,
+                                           BASIC_AMOUNT, HOUSE_RENT_AMOUNT, MEDICAL_ALLOWANCE_AMOUNT, OTHER_AMOUNT, PF_AMOUNT, TRANSPORT_AMOUNT,TOTAL_DAY
+                           FROM TEMP_ATTENDANCE_PROCESS;
+                           
+                            V_OTHER_DEDUCTION NUMBER := 0;
+                            V_LATE_AMOUNT NUMBER := 0;
+                            V_LEV_TAKEN NUMBER := 0;
+                            V_SALARY_ELIGIBLE NUMBER := 0;
+                       BEGIN
+                           FOR REC1 IN C1 LOOP
+                                BEGIN
+                                    PRC_DEDUCTION_CALCULATION(
+                                        P_ENROLL                => REC1.EMP_ID,
+                                        P_SAL_DATE              => '31-DEC-2024',
+                                        P_YEAR                   => 2024,
+                                        P_MONTH                 => 12,
+                                        P_TOTAL_DAY             => 31,
+                                        P_DAILY_SALARY          => REC1.D_SALARY,
+                                        P_OTHER_DEDUCTION   => V_OTHER_DEDUCTION,
+                                        P_LATE_AMOUNT       => V_LATE_AMOUNT,
+                                        P_LEV_TAKEN         => V_LEV_TAKEN,
+                                        P_SALARY_ELIGIBLE   =>V_SALARY_ELIGIBLE
+                                    );
+                                END;
+                                DBMS_OUTPUT.PUT_LINE(REC1.EMP_ID||'other'||V_OTHER_DEDUCTION||' -'||'late punishment amount :'||V_LATE_AMOUNT||'leave'||'---'||V_LEV_TAKEN||'is salary'||V_SALARY_ELIGIBLE);
+                              end loop;
+                                end;
