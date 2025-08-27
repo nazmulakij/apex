@@ -1,0 +1,3 @@
+select * from  MONTHLY_SALARY_GENERATE_VW b where b.month_id=7 and b.year_id=2025 and b.unit_id=300 and b.emp_id  in(
+
+select b.emp_id FROM tblMonthlySalaryGenerate@HSLINKHR a,  MONTHLY_SALARY_GENERATE_VW b where a."intMonthID"=b.month_id and a."intYearID" =b.year_id and b.UNIT_ID=300 and a."intEmpID" = b.emp_id and b.month_id=7 and year_id=2025)

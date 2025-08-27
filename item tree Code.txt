@@ -1,0 +1,4 @@
+select level, lpad(' ',2*(level-1)) || item_code as item_code, item_desc
+   from inv_item_dtl
+   start with ITEM_PARENT_CODE is null 
+   connect by prior item_code = ITEM_PARENT_CODE

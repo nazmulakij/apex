@@ -1,0 +1,40 @@
+DECLARE
+    CURSOR c IS
+      SELECT rowid, id
+        FROM branch
+        ORDER BY Bank_id,DIVITION_ID,DISTRICT_ID,branch_id; 
+
+    sl_no NUMBER := 0;
+BEGIN
+    FOR r_serial IN c LOOP
+        sl_no := sl_no + 1;
+        
+        UPDATE branch
+        SET id = sl_no
+        WHERE rowid = r_serial.rowid;
+    END LOOP;
+
+
+END;
+
+
+DECLARE
+    CURSOR c IS
+      SELECT ROWID, PF_TRANSECTION_ID FROM  PROVIDENT_FUND
+      WHERE PF_TRANSECTION_ID IS NULL
+ ORDER BY EMP_ID,MONTH_ID,YEAR_ID,PF_TRANSECTION_ID;
+
+    sl_no NUMBER := 0;
+BEGIN
+
+ SELECT MAX(PF_TRANSECTION_ID) INTO  sl_no  FROM  PROVIDENT_FUND;
+    FOR r_serial IN c LOOP
+        sl_no := sl_no + 1;
+        
+        UPDATE  PROVIDENT_FUND
+        SET PF_TRANSECTION_ID = sl_no
+        WHERE rowid = r_serial.rowid;
+    END LOOP;
+
+
+END;
