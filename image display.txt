@@ -1,0 +1,7 @@
+SELECT 
+    EMP_ID,
+    '<img src="https://schoolerp.akijinsaf.com/scl/r/scl_pmis/hr-and-payroll/image?p9_pic_id='||emp_id||'.jpg" " width="100"/>' as img
+FROM 
+    EMP_INFO
+WHERE 
+    EMP_ID = :P14_EMP_ID

@@ -1,0 +1,41 @@
+TABLE LOCK AND UNLOCK
+
+
+select lo.session_id,lo.oracle_username,lo.os_user_name,
+lo.process,do.object_name,do.owner,
+decode(lo.locked_mode,0, 'None',1, 'Null',2, 'Row Share (SS)',
+3, 'Row Excl (SX)',4, 'Share',5, 'Share Row Excl (SSX)',6, 'Exclusive',
+to_char(lo.locked_mode)) mode_held
+from gv$locked_object lo, dba_objects do
+where lo.object_id = do.object_id
+order by 5
+
+
+BEGIN
+  FOR r IN (SELECT sid, serial# FROM v$session WHERE username = 'ATML_PMIS') 
+  LOOP
+      EXECUTE IMMEDIATE 'ALTER SYSTEM KILL SESSION ''' || r.sid || ',' || r.serial# || ''' IMMEDIATE';
+  END LOOP;
+END;
+
+
+
+
+
+SELECT s.sid,
+       s.serial#,
+       s.username,
+       s.status,
+       s.osuser,
+       s.machine,
+       s.program,
+       s.logon_time,
+       q.sql_text,
+       q.sql_fulltext,
+       ROUND(s.last_call_et/60, 2) AS minutes_running
+FROM   v$session s
+JOIN   v$sql q
+       ON s.sql_id = q.sql_id
+WHERE  s.status = 'ACTIVE'
+AND    s.username IS NOT NULL
+ORDER BY minutes_running DESC;

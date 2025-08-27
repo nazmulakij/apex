@@ -1,0 +1,328 @@
+<script type="text/javascript" src="#WORKSPACE_IMAGES#jquery1.8.3.min.js"></script>
+
+    <script type="text/javascript">
+        $("#btnPrint").live("click", function () {
+
+var headstr = "<html><head><title></title><style>td,p,th,div{font-size:11px; padding: 0px 3px !important;} body {background-color: #fff !important;} table{width:100%;border-collapse: collapse;} </style></head><body>";
+            var footstr = "</body>";
+            var newstr = $("#printID").html();
+            var oldstr = document.body.innerHTML;
+            document.body.innerHTML = headstr+newstr+footstr;
+
+            window.print();
+            location.reload();
+            document.body.innerHTML = oldstr;
+            return false;
+
+
+        });
+    </script>
+
+
+
+<style>
+
+#tbl-rpt td {
+		padding: 0px 3px !important;
+		border:1px solid #aaaaaa;
+		}
+
+.t-Button--success {
+    --a-button-background-color: #36ba01;
+    --a-button-text-color: #fff;
+    --a-button-hover-background-color: #278701;
+    --a-button-hover-text-color: var(--a-button-text-color);
+    --a-button-active-background-color: #206e01;
+    --a-button-active-text-color: var(--a-button-hover-text-color);
+    --a-button-focus-background-color: var(--a-button-hover-background-color);
+    --a-button-focus-text-color: var(--a-button-hover-text-color);
+}
+
+    .t-Button--primary {
+    --a-button-background-color: var(--u-color-33);
+    --a-button-text-color: aliceblue;
+    --a-button-hover-background-color: #23d4d5;
+    --a-button-hover-text-color: var(--a-button-text-color);
+    --a-button-active-background-color: #84c2fc;
+    --a-button-active-text-color: #050505
+}
+.t-Button--simple {
+    --a-button-border-color: #ffbb00;
+    --a-button-background-color: #00000038;
+    --a-button-text-color: #524112;
+    -a-button-hover-text-color: #000;
+}
+.fa-plus-circle-o{
+color: darkturquoise;
+font-size: 18px;
+font-weight: bold;
+}
+
+    .t-Form-itemWrapper .a-Button, .t-Form-itemWrapper .apex-item-display-only, .t-Form-itemWrapper .apex-item-multi, .t-Form-itemWrapper input, .t-Form-itemWrapper select, .t-Form-itemWrapper textarea {
+    border-color: skyblue;
+}
+.apex-item-group--popup-lov .apex-item-multi:not(:last-child), .apex-item-group--popup-lov .apex-item-popup-lov:not(:last-child) {
+    border-color: skyblue;
+}
+
+.apex-item-wrapper--date-picker-jet .oj-text-field .oj-text-field-container, .a-GV-columnItem .apex-item-datepicker-jet .oj-text-field .oj-text-field-container {
+    --oj-text-field-border-width: var(--a-field-input-border-width, 1px);
+    --oj-text-field-border-color: var(--a-field-input-state-border-color, var(--a-field-input-border-color));
+    --oj-text-field-border-radius: var(--a-field-input-border-radius, .125rem);
+    --oj-text-field-bg-color: var(--a-field-input-state-background-color, var(--a-field-input-background-color));
+    --oj-text-field-border-color-focus: var(--a-field-input-focus-border-color);
+    overflow: visible;
+    transition: background-color .2s ease, border-color .2s ease, box-shadow .2s ease, color .2s ease;
+    border-color: skyblue;
+}
+
+.apex-rds-container {
+    background-color: #e6e6e6;
+}
+
+.apex-rds li, .t-Tabs-item {
+      padding: 1px;
+    border: 1px solid #a09c9c;
+background: #dcedc8;
+   color: #009688;
+}
+
+.apex-rds .apex-rds-selected a {
+    color: #aa0000;
+    background: #80cbc4;
+}
+
+
+.a-IRR-table tr:nth-child(even) {background: #f9f9f9}
+.a-IRR-table tr:nth-child(odd) {background: #FFF}
+
+.t-TreeNav {
+    background-color: #004D40;
+}
+.t-TreeNav--styleA .a-TreeView-node--topLevel {
+    border-bottom: 1px solid rgba(251,249,248,.075);
+}
+
+.t-TreeNav .a-TreeView-node--topLevel .a-TreeView-row.is-current--top, .t-TreeNav .a-TreeView-node--topLevel ul, .t-TreeNav .a-TreeView-node--topLevel.is-collapsible>.a-TreeView-row {
+    background-color: #006064;
+}
+
+
+body .ui-corner-all {
+    border-radius: 6px 6px 0px 0px;
+}
+.t-Header-logo-link img {
+    max-height: 3rem;
+}
+
+.t-Region--scrollBody>.t-Region-bodyWrap>.t-Region-body {
+    background: none !important;
+}
+
+.a-IRR-aggregate {
+    text-align: right !important;
+}
+
+.t-ButtonRegion {
+    margin-bottom: -1px;
+ }
+
+ th{
+        background:#eee !important;
+      }
+
+ th, td,p {
+    padding: 3px 6px !important;
+}
+.t-Body, body {
+     /*background: #fff;*/
+    color: #000;
+    font-size: 12px;
+    line-height:1.2em;
+}
+.t-Report-wrap {
+    width: 100%;
+}
+
+.t-Region--scrollBody>.t-Region-bodyWrap>.t-Region-body {
+    --display: none;
+    --background: none;
+    background-color: #f5f5f5 !important;
+}
+
+.a-IRR-toolbar {
+    background: #BDDFF3;
+    border-color: #e6e6e6;
+}
+
+
+    
+.t-Footer{
+    
+    display:none !important;
+}
+.t-Footer-body{
+display:none !important;
+}
+    
+#btnPrint:hover{
+cursor: pointer;
+}
+
+#report_header_comon{
+display:none;
+}
+
+.iti__flag {
+        background-size: 5652px 15px !important;
+        background-image: url(#APP_FILES#flags@2x.png)  !important;
+    }
+    
+@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi)
+{
+    
+}
+/*
+@media (max-width: 600px) {
+ 
+  #t-Header{
+    display: none;
+  }
+  
+  .apex-side-nav .t-Body-actions, .apex-side-nav .t-Body-nav, .apex-side-nav .t-Body-title {
+    top: 40px;
+        }
+}
+   
+ */   
+.t-Region--scrollBody>.t-Region-bodyWrap>.t-Region-body {
+    background: none !important;
+}
+
+
+
+.t-Region {
+    background-color: #f4f9fd;
+   /* border: 1px solid #79c2ff;*/
+}
+
+.t-Region, .t-Region-header {
+    border-radius: 2px 0px;
+    
+}
+
+.t-Region-header {
+       background: #a5d6a7  !important;
+       /*#abcee1 !important; #79c2ff  309fdb!important; */
+}
+}
+
+
+.t-Region-headerItems--title {
+    text-align: left;
+    padding: 1.4rem 1.2rem;
+}
+
+body .ui-dialog .ui-dialog-titlebar {
+    background-color: #477996 !important;
+    border-bottom: 1px solid #4696fc;
+}
+
+.ui-dialog-title {
+    color: #fff !important;
+}
+
+.t-Region-title
+{
+    font-weight: 500;
+    color:#000 !important;
+}
+
+
+
+#filterRegionID
+{ 
+    max-width:800px;
+    margin:auto;
+    
+    padding-bottom: 7px;
+    margin-bottom: 20px;
+}
+.t-Region--scrollBody>.t-Region-bodyWrap>.t-Region-body
+{
+--display:none;
+--background:none;
+background-color:#fff;
+}
+
+.t-Region-buttons
+{
+background-color:#f5f5f5;
+}
+
+.t-Header {
+    z-index: 800;
+    background: #e6e6e6;
+}
+.t-Header-branding {
+    background-color: #037c67 !important;
+}
+
+
+
+.t-Footer{
+display:none;
+}
+
+
+table{
+width:100%;
+border-collapse: collapse;
+overflow: auto !important;
+}
+
+.a-Button, .t-Button {
+    border-radius: 4px;
+}
+
+
+.a-IRR-header {
+    background-color: #e6eff5;
+    /*border-top: 1px solid #e6e6e6;*/
+    box-shadow: inset 1px 0 0 0 #e6e6e6;
+}
+
+.t-Report-pagination, .t-Report-pagination table, .t-Report-report {
+    background: aliceblue;
+}
+
+.a-IRR-table tr:nth-child(even) {background: #f9f9f9}
+.a-IRR-table tr:nth-child(odd) {background: #FFF}
+
+
+.a-IRR-table tr:hover td {
+	background-color: #DEEFFB;
+}
+
+.a-IRR-table tr td {
+	background-color: transparent;
+}
+
+
+/* Interactive Grid  column fixed */
+.a-GV-row{
+   height: 36px;
+}
+
+
+.t-PageBody--leftNav .t-Body-nav::-webkit-scrollbar-thumb {
+    box-shadow: inset 10px 0 0 0 #fb091f !important;
+}
+
+.t-PageBody--leftNav .t-Body-nav {
+    background-color: #111e30;
+    top:0px;
+    }
+
+</style>
+
