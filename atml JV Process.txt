@@ -1,0 +1,2 @@
+--Description: <Description,,>--Corporate, Factory, Marketing
+ EXEC ERP_HR.dbo.sprSalaryVoucherEntryManual @strStatus='Factory', @dteGenerateDate='2024-07-31', @intUnitID=56
